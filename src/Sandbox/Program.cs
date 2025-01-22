@@ -8,7 +8,9 @@ const string trainLabels = "../../../Resources/Images/train-labels.idx1-ubyte";
 const string testImages = "../../../Resources/Images/t10k-images.idx3-ubyte";
 const string testLabels = "../../../Resources/Images/t10k-labels.idx1-ubyte";
 
-string modelPath = "../../../Resources/TrainedModels/model89.json";
+const string modelPath = "../../../Resources/TrainedModels/model89.json";
+
+const string bmpsPath = "../../../Resources/Bmps/";
 
 //var model = new NeuralNetworkModel([784, 16, 16, 10]);
 
@@ -51,7 +53,7 @@ foreach (var image in MnistReader.ReadData(testLabels, testImages))
     {
         wrong++;
 
-        //image.SaveToBitmap(result.Result);
+        image.SaveToBitmap(result.Result, bmpsPath);
         //model.PrintOutput();
 
         //Console.ReadKey();
