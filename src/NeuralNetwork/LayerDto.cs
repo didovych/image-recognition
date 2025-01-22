@@ -1,6 +1,6 @@
 ﻿namespace NeuralNetwork
 {
-    internal class LayerDto
+    public class LayerDto
     {
         public double[] Biases { get; set; }
 

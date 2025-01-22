@@ -1,6 +1,6 @@
 ﻿namespace NeuralNetwork
 {
-    internal enum LayerType
+    public enum LayerType
     {
         Input,
         Middle,
