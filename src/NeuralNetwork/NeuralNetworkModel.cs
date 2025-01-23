@@ -6,6 +6,8 @@ namespace NeuralNetwork
     {
         private readonly Layer[] _layers;
 
+        public int InputSize => _layers[0].Size;
+
         public NeuralNetworkModel(int[] sizes)
         {
             _layers = new Layer[sizes.Length];

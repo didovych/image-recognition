@@ -2,16 +2,18 @@
 
 namespace Services
 {
-    public class DigitsRecognition : IDigitsRecognition
+    public class DigitsRecognitionService : IDigitsRecognitionService
     {
         private readonly INeuralNetworkModel _model;
 
-        public DigitsRecognition(INeuralNetworkModel model)
+        public DigitsRecognitionService(INeuralNetworkModel model)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
         }
 
-        public int RecognizeDigit(byte[] pixels)
+        public int InputSize => _model.InputSize;
+
+        public int RecognizeDigit(IEnumerable<byte> pixels)
         {
             var input = ConvertPixelsToModelInput(pixels);
 
@@ -22,7 +24,7 @@ namespace Services
             return output.Result;
         }
 
-        private double[] ConvertPixelsToModelInput(byte[] pixels)
+        private double[] ConvertPixelsToModelInput(IEnumerable<byte> pixels)
         {
             var input = pixels.Select(p => (double)p / byte.MaxValue).ToArray();
 

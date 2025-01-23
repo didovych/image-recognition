@@ -1,0 +1,6 @@
+@DigitsRecognitionApi_HostAddress = http://localhost:5278
+
+GET {{DigitsRecognitionApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
