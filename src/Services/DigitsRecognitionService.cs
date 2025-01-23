@@ -13,7 +13,7 @@ namespace Services
             _model = _modelLoader.LoadModel();
         }
 
-        public int InputSize => _model == null ? 0 : _model.InputSize;
+        public int InputSize => _model.InputSize;
 
         public NeuralNetworkOutput RecognizeDigit(IEnumerable<byte> pixels)
         {
