@@ -14,7 +14,7 @@ namespace DigitsRecognitionApi.Controllers
             _digitsRecognitionService = digitsRecognitionService ?? throw new ArgumentNullException(nameof(digitsRecognitionService));
         }
 
-        [HttpGet(Name = "RecognizeDigit")]
+        [HttpPost(Name = "RecognizeDigit")]
         public ActionResult<int> RecognizeDigit([FromBody] List<byte> pixels)
         {
             if (pixels.Count != _digitsRecognitionService.InputSize)

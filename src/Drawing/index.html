@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Drawing</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        canvas {
+            margin-bottom: 20px;
+            background-color: #000;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Draw your digit</h1>
+    <canvas id="drawingCanvas" width="280" height="280"></canvas>
+    <button onclick="recognizeDrawing()">Recognize</button>
+    <button onclick="clearDrawing()">Clear Drawing</button>
+    <div id="result"></div>
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        canvas.addEventListener('mousedown', () => drawing = true);
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mousemove', draw);
+
+        function draw(event) {
+            if (!drawing) return;
+            ctx.lineWidth = 20;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = 'white';
+
+            ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        }
+
+        function recognizeDrawing() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            const data = imageData.data;
+            const grayscaleData = new Uint8Array(canvas.width * canvas.height);
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+                // Convert to grayscale using the luminance formula
+                const grayscale = 0.33 * r + 0.33 * g + 0.33 * b;
+
+                grayscaleData[i / 4] = grayscale;
+            }
+
+            // make the pixels 28x28
+            const resizedPixels = new Uint8Array(canvas.width * canvas.height / 100);
+
+            for (let i = 0; i < resizedPixels.length; i++) {
+                const row = Math.floor(i / 28);
+                const col = i % 28;
+                const rowStart = row * 10 * canvas.width;
+                const colStart = col * 10;
+                let sum = 0;
+                for (let j = 0; j < 10; j++) {
+                    for (let k = 0; k < 10; k++) {
+                        sum += grayscaleData[rowStart + colStart + j * canvas.width + k];
+                    }
+                }
+                resizedPixels[i] = sum / 100;
+            }
+
+            // convert resizedPixels to 1D array
+            const resizedPixelsString = JSON.stringify(Array.from(resizedPixels));
+
+            fetch('https://localhost:7183/DigitsRecognition', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: resizedPixelsString
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = `Recognition Result: ${data}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Recognition failed. Please try again.';
+            });
+        }
+
+        function clearDrawing() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+        }
+    </script>
+</body>
+</html>

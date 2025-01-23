@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitsRecognitionApi", "DigitsRecognitionApi\DigitsRecognitionApi.csproj", "{C1A1EB3E-8068-44DD-ACCA-767EDE7CB4E6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drawing", "Drawing", "{C2C16B27-5E39-4D62-A642-A1DD742F4C57}"
+	ProjectSection(SolutionItems) = preProject
+		Drawing\index.html = Drawing\index.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

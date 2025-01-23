@@ -14,6 +14,17 @@ const string modelPath = "Resources/TrainedModels/model89.json";
 builder.Services.AddScoped<IModelLoader, ModelLoader>(serviceProvider => new ModelLoader(modelPath));
 builder.Services.AddScoped<IDigitsRecognitionService, DigitsRecognitionService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllCors",
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                      });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +34,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllCors"); // Ensure CORS middleware is used
 
 app.UseAuthorization();
 
