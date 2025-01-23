@@ -4,14 +4,16 @@ namespace Services
 {
     public class DigitsRecognitionService : IDigitsRecognitionService
     {
+        private readonly IModelLoader _modelLoader;
         private readonly INeuralNetworkModel _model;
 
-        public DigitsRecognitionService(INeuralNetworkModel model)
+        public DigitsRecognitionService(IModelLoader modelLoader)
         {
-            _model = model ?? throw new ArgumentNullException(nameof(model));
+            _modelLoader = modelLoader ?? throw new ArgumentNullException(nameof(modelLoader));
+            _model = _modelLoader.LoadModel();
         }
 
-        public int InputSize => _model.InputSize;
+        public int InputSize => _model == null ? 0 : _model.InputSize;
 
         public int RecognizeDigit(IEnumerable<byte> pixels)
         {

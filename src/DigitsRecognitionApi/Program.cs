@@ -1,6 +1,4 @@
-using NeuralNetwork;
 using Services;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +11,7 @@ builder.Services.AddOpenApi();
 // load pre-trained model
 const string modelPath = "Resources/TrainedModels/model89.json";
 
-var json = File.ReadAllText(modelPath);
-var modelDto = JsonSerializer.Deserialize<NeuralNetworkModelDto>(json) ?? throw new Exception("Can not load the model");
-var model = new NeuralNetworkModel(modelDto);
-
-builder.Services.AddScoped<INeuralNetworkModel, NeuralNetworkModel>(serviceProvider => model);
+builder.Services.AddScoped<IModelLoader, ModelLoader>(serviceProvider => new ModelLoader(modelPath));
 builder.Services.AddScoped<IDigitsRecognitionService, DigitsRecognitionService>();
 
 var app = builder.Build();
