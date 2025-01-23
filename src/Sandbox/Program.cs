@@ -53,7 +53,7 @@ foreach (var image in MnistReader.ReadData(testLabels, testImages))
     {
         wrong++;
 
-        image.SaveToBitmap(result.Result, bmpsPath);
+        //image.SaveToBitmap(result.Result, bmpsPath);
         //model.PrintOutput();
 
         //Console.ReadKey();

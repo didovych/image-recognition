@@ -2,7 +2,7 @@
 
 namespace NeuralNetwork
 {
-    public class NeuralNetworkModel
+    public class NeuralNetworkModel : INeuralNetworkModel
     {
         private readonly Layer[] _layers;
 
