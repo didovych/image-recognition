@@ -181,7 +181,7 @@
                 }
             }
 
-            return new NeuralNetworkOutput(resultIndex, maxOutput, _neurons);
+            return new NeuralNetworkOutput(resultIndex, maxOutput * 2, _neurons);
         }
 
         public void PrintMetrics()

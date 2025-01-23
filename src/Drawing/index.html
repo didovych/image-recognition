@@ -42,6 +42,21 @@
             font-size: 18px;
             color: #333;
         }
+        #output {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            height: 90vh;
+            font-size: 14px;
+            color: #333;
+            white-space: pre-wrap;
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-y: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -50,6 +65,7 @@
     <button onclick="recognizeDrawing()">Recognize</button>
     <button onclick="clearDrawing()">Clear Drawing</button>
     <div id="result"></div>
+    <div id="output"></div>
     <script>
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
@@ -116,7 +132,9 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('result').innerText = `Recognition Result: ${data}`;
+                console.log('Success:', data);
+                document.getElementById('result').innerText = `I think it is: ${data.result}`;
+                document.getElementById('output').innerText = JSON.stringify(data, null, 2);
             })
             .catch(error => {
                 console.error('Error:', error);

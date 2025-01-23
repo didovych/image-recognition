@@ -15,15 +15,13 @@ namespace Services
 
         public int InputSize => _model == null ? 0 : _model.InputSize;
 
-        public int RecognizeDigit(IEnumerable<byte> pixels)
+        public NeuralNetworkOutput RecognizeDigit(IEnumerable<byte> pixels)
         {
             var input = ConvertPixelsToModelInput(pixels);
 
             _model.Forward(input);
 
-            var output = _model.GetOutput();
-
-            return output.Result;
+            return _model.GetOutput();
         }
 
         private double[] ConvertPixelsToModelInput(IEnumerable<byte> pixels)

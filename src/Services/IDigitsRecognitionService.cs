@@ -1,8 +1,10 @@
-﻿namespace Services
+﻿using NeuralNetwork;
+
+namespace Services
 {
     public interface IDigitsRecognitionService
     {
         int InputSize { get; }
-        int RecognizeDigit(IEnumerable<byte> pixels);
+        NeuralNetworkOutput RecognizeDigit(IEnumerable<byte> pixels);
     }
 }

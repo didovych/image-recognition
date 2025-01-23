@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NeuralNetwork;
 using Services;
 
 namespace DigitsRecognitionApi.Controllers
@@ -15,7 +16,7 @@ namespace DigitsRecognitionApi.Controllers
         }
 
         [HttpPost(Name = "RecognizeDigit")]
-        public ActionResult<int> RecognizeDigit([FromBody] List<byte> pixels)
+        public ActionResult<NeuralNetworkOutput> RecognizeDigit([FromBody] List<byte> pixels)
         {
             if (pixels.Count != _digitsRecognitionService.InputSize)
             {
