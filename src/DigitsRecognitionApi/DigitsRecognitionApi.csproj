@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="Resources\TrainedModels\model89.json" />
+    <Content Remove="Resources\TrainedModels\modelBW88.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <None Include="Resources\TrainedModels\model89.json" />
+    <None Include="Resources\TrainedModels\modelBW88.json" />
   </ItemGroup>
 
 </Project>

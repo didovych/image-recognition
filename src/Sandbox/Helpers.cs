@@ -39,7 +39,7 @@ namespace Sandbox
 
             foreach (var image in MnistReader.ReadData(testLabels, testImages))
             {
-                var input = image.GenerateNetworkInput();
+                var input = image.GenerateBlackAndWhiteNetworkInput();
                 model.Forward(input);
                 var result = model.GetOutput();
 

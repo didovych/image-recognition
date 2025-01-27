@@ -15,9 +15,11 @@ namespace Services
 
         public int InputSize => _model.InputSize;
 
-        public NeuralNetworkOutput RecognizeDigit(IEnumerable<byte> pixels)
+        public NeuralNetworkOutput RecognizeDigit(IEnumerable<byte> pixels, bool convertToBlackAndWhite)
         {
-            var input = ConvertPixelsToModelInput(pixels);
+            var input = convertToBlackAndWhite
+                ? ConvertPixelsToBlackAndWhiteModelInput(pixels)
+                : ConvertPixelsToModelInput(pixels);
 
             _model.Forward(input);
 
@@ -27,6 +29,13 @@ namespace Services
         private double[] ConvertPixelsToModelInput(IEnumerable<byte> pixels)
         {
             var input = pixels.Select(p => (double)p / byte.MaxValue).ToArray();
+
+            return input;
+        }
+
+        private double[] ConvertPixelsToBlackAndWhiteModelInput(IEnumerable<byte> pixels)
+        {
+            var input = pixels.Select(p => p > byte.MaxValue / 2 ? 1.0 : 0.0).ToArray();
 
             return input;
         }

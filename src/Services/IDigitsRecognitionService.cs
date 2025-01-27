@@ -5,6 +5,6 @@ namespace Services
     public interface IDigitsRecognitionService
     {
         int InputSize { get; }
-        NeuralNetworkOutput RecognizeDigit(IEnumerable<byte> pixels);
+        NeuralNetworkOutput RecognizeDigit(IEnumerable<byte> pixels, bool convertToBlackAndWhite);
     }
 }

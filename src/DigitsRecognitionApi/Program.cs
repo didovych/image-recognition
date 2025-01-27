@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // load pre-trained model
-const string modelPath = "Resources/TrainedModels/model89.json";
+const string modelPath = "Resources/TrainedModels/modelBW88.json";
 
 builder.Services.AddScoped<IModelLoader, ModelLoader>(serviceProvider => new ModelLoader(modelPath));
 builder.Services.AddScoped<IDigitsRecognitionService, DigitsRecognitionService>();

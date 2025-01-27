@@ -23,7 +23,7 @@ namespace DigitsRecognitionApi.Controllers
                 return BadRequest("Invalid input size.");
             }
 
-            var digit = _digitsRecognitionService.RecognizeDigit(pixels);
+            var digit = _digitsRecognitionService.RecognizeDigit(pixels, true);
 
             return Ok(digit);
         }
