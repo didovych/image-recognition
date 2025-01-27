@@ -29,6 +29,11 @@ namespace ImageReader
         {
             return Bytes.Select(b => (double)b / byte.MaxValue).ToArray();
         }
+
+        public double[] GenerateBlackAndWhiteNetworkInput()
+        {
+            return Bytes.Select(b => b > byte.MaxValue / 2 ? 1.0 : 0.0).ToArray();
+        }
     }
 
     public static class Extensions

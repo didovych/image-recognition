@@ -8,9 +8,9 @@ var model = new NeuralNetworkModel([784, 16, 16, 10]);
 
 Helpers.TrainModel(model);
 
-//var modelDto = model.ConvertToDto();
-//var json = JsonSerializer.Serialize(modelDto);
-//File.WriteAllText(modelPath, json);
+var modelDto = model.ConvertToDto();
+var json = JsonSerializer.Serialize(modelDto);
+File.WriteAllText(modelPath, json);
 
 Helpers.TestModel(model);
 
